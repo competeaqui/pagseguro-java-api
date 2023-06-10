@@ -1,4 +1,6 @@
-# QRCode PIX Java [![build](https://github.com/competeaqui/pagseguro-java-api/actions/workflows/build.yml/badge.svg)](https://github.com/competeaqui/pagseguro-java-api/actions/workflows/build.yml) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/xxxxxx)](https://app.codacy.com/gh/competeaqui/pagseguro-java-api/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade) [![Codacy Code Coverage](https://app.codacy.com/project/badge/Coverage/xxxxxx)](https://www.codacy.com/gh/competeaqui/pagseguro-java-api/dashboard?utm_source=github.com&utm_medium=referral&utm_content=competeaqui/pagseguro-java-api&utm_campaign=Badge_Coverage)
+# QRCode PIX Java [![build](https://github.com/competeaqui/pagseguro-java-api/actions/workflows/build.yml/badge.svg)](https://github.com/competeaqui/pagseguro-java-api/actions/workflows/build.yml) 
+
+<!-- [![Codacy Badge](https://app.codacy.com/project/badge/Grade/xxxxxx)](https://app.codacy.com/gh/competeaqui/pagseguro-java-api/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade) [![Codacy Code Coverage](https://app.codacy.com/project/badge/Coverage/xxxxxx)](https://www.codacy.com/gh/competeaqui/pagseguro-java-api/dashboard?utm_source=github.com&utm_medium=referral&utm_content=competeaqui/pagseguro-java-api&utm_campaign=Badge_Coverage) -->
 
 Biblioteca Java para consumo da API de pagamentos do PagSeguro (PagBank).
 
