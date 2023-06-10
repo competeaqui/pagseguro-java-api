@@ -19,17 +19,17 @@ import java.util.List;
 public record PixOrderRequest(
         @NonNull String reference_id,
         @NonNull Customer customer,
-        @NonNull List<Item> items,
+        List<Item> items,
         @NonNull List<QrCode> qr_codes,
-        @NonNull Shipping shipping,
+        Shipping shipping,
         @NonNull List<String> notification_urls)
 {
     public PixOrderRequest(@NonNull String reference_id, @NonNull Customer customer) {
-        this(reference_id, customer, new LinkedList<>(), new LinkedList<>(), Shipping.empty(), new LinkedList<>());
+        this(reference_id, customer, new LinkedList<>(), new LinkedList<>(), null, new LinkedList<>());
     }
 
     public PixOrderRequest(@NonNull String reference_id, @NonNull Customer customer, @NonNull QrCode qrcode, @NonNull String notificationUrl) {
-        this(reference_id, customer, new LinkedList<>(), List.of(qrcode), Shipping.empty(), List.of(notificationUrl));
+        this(reference_id, customer, null, List.of(qrcode), null, List.of(notificationUrl));
     }
 
 }
