@@ -32,16 +32,20 @@ public class PixOrderService {
 
     /**
      * TODO Deve retornar um objeto {@link PixOrderResponse}
+     * @throws RequestErrors
      */
     public String send(final @NonNull PixOrderRequest order){
         try {
             final String json = jsonMapper.writeValueAsString(order);
-            System.out.println(json);
+            System.out.printf("%s%n%n", json);
             final var request = HttpRequest.newBuilder()
                                            .POST(BodyPublishers.ofString(json))
                                            .uri(URI.create(SERVICE_URI))
                                            .build();
             final var res = client.send(request, HttpResponse.BodyHandlers.ofString());
+            if(res.statusCode() != 200) {
+                throw jsonMapper.readValue(res.body(), RequestErrors.class);
+            }
             return res.body();
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);

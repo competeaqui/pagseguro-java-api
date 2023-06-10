@@ -2,6 +2,7 @@ package br.com.competeaqui.pagseguro;
 
 import br.com.competeaqui.pagseguro.service.PixOrderRequest;
 import br.com.competeaqui.pagseguro.service.PixOrderService;
+import br.com.competeaqui.pagseguro.service.RequestErrors;
 
 import java.time.LocalDateTime;
 
@@ -17,6 +18,11 @@ class AppSample {
         final var customer = new Customer("Manoel", "teste@teste.com", "11111111111");
         final var qrcode = new QrCode(new Amount("10.0"), LocalDateTime.now().plusDays(1));
         final var request = new PixOrderRequest("codigo-da-venda", customer, qrcode, NOTIFICATION_URL);
-        System.out.println(service.send(request));
+        try {
+            System.out.println(service.send(request));
+        } catch (final RequestErrors e) {
+            System.err.println("Erro ao processar requisição");
+            e.getError_messages().forEach(System.err::println);
+        }
     }
 }
