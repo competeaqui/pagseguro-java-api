@@ -6,11 +6,9 @@ import br.com.competeaqui.pagseguro.service.request.PixOrderRequest;
 import br.com.competeaqui.pagseguro.service.request.QrCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -35,11 +33,5 @@ public class QrCodeResponse extends QrCode {
         this.text = text;
         this.arrangements = Util.getList(arrangements);
         this.links = Util.getList(links);
-    }
-
-    public QrCodeResponse(@NonNull Amount amount, @NonNull OffsetDateTime expiration_date) {
-        super(amount, expiration_date);
-        this.arrangements = new LinkedList<>();
-        this.links = new LinkedList<>();
     }
 }

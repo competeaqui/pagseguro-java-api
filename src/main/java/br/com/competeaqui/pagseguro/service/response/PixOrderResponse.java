@@ -34,5 +34,4 @@ public record PixOrderResponse(
         this.links = Util.getList(links);
         this.notification_urls = Util.getList(notification_urls);
     }
-
 }
