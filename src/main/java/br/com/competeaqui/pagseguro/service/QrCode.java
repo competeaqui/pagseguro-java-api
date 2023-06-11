@@ -3,6 +3,7 @@ package br.com.competeaqui.pagseguro.service;
 import br.com.competeaqui.pagseguro.Util;
 import br.com.competeaqui.pagseguro.data.Amount;
 import br.com.competeaqui.pagseguro.service.response.Link;
+import br.com.competeaqui.pagseguro.service.response.PixOrderResponse;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
@@ -38,19 +39,25 @@ public class QrCode {
         this(new Amount(amountDecimal), expiration_date);
     }
 
-    private QrCode(final Amount amountDecimal, final OffsetDateTime expiration_date) {
-        this.amount = amountDecimal;
-        this.expiration_date = expiration_date;
-    }
-
+    /**
+     * Construtor chamado automaticamente quando é feito o parse do JSON de resposta
+     * de requisição para criação de QRCode PIX.
+     * @see PixOrderResponse
+     * @see PixOrderService
+     */
     public QrCode(
-        String id, String text, Amount amount, OffsetDateTime expiration_date,
-        List<String> arrangements, List<Link> links)
+            String id, String text, Amount amount, OffsetDateTime expiration_date,
+            List<String> arrangements, List<Link> links)
     {
         this(amount, expiration_date);
         this.id = id;
         this.text = text;
         this.arrangements = Util.getList(arrangements);
         this.links = Util.getList(links);
+    }
+
+    private QrCode(final Amount amountDecimal, final OffsetDateTime expiration_date) {
+        this.amount = amountDecimal;
+        this.expiration_date = expiration_date;
     }
 }
