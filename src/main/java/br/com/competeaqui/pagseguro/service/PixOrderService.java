@@ -1,6 +1,5 @@
 package br.com.competeaqui.pagseguro.service;
 
-import br.com.competeaqui.pagseguro.service.request.PixOrderRequest;
 import br.com.competeaqui.pagseguro.service.response.PixOrderResponse;
 import br.com.competeaqui.pagseguro.service.response.ResponseError;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -49,7 +48,6 @@ public class PixOrderService {
     public PixOrderResponse send(final @NonNull PixOrderRequest order){
         try {
             final String json = jsonMapper.writeValueAsString(order);
-            System.out.printf("%s%n%n", json);
             final var request = HttpRequest.newBuilder()
                                            .POST(BodyPublishers.ofString(json))
                                            .header("AUTHORIZATION", token)
@@ -57,10 +55,11 @@ public class PixOrderService {
                                            .build();
             final var res = client.send(request, HttpResponse.BodyHandlers.ofString());
             final var status = String.valueOf(res.statusCode());
+            final var responseBody = res.body();
             if(!status.startsWith("20")) {
-                throw jsonMapper.readValue(res.body(), ResponseError.class);
+                throw jsonMapper.readValue(responseBody, ResponseError.class);
             }
-            return jsonMapper.readValue(res.body(), PixOrderResponse.class);
+            return jsonMapper.readValue(responseBody, PixOrderResponse.class);
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }

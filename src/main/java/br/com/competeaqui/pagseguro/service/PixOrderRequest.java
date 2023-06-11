@@ -1,10 +1,9 @@
-package br.com.competeaqui.pagseguro.service.request;
+package br.com.competeaqui.pagseguro.service;
 
 
-import br.com.competeaqui.pagseguro.Customer;
-import br.com.competeaqui.pagseguro.Item;
-import br.com.competeaqui.pagseguro.Shipping;
-import br.com.competeaqui.pagseguro.service.PixOrderService;
+import br.com.competeaqui.pagseguro.data.Customer;
+import br.com.competeaqui.pagseguro.data.Item;
+import br.com.competeaqui.pagseguro.data.Shipping;
 import lombok.NonNull;
 
 import java.util.LinkedList;
@@ -28,7 +27,7 @@ public record PixOrderRequest(
         this(reference_id, customer, new LinkedList<>(), new LinkedList<>(), null, new LinkedList<>());
     }
 
-    public PixOrderRequest(@NonNull String reference_id, @NonNull Customer customer, @NonNull QrCode qrcode, @NonNull String notification_url) {
+    public PixOrderRequest(@NonNull String reference_id, @NonNull Customer customer, QrCode qrcode, @NonNull String notification_url) {
         this(reference_id, customer, null, List.of(qrcode), null, List.of(validateUrl(notification_url)));
     }
 

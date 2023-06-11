@@ -1,4 +1,4 @@
-package br.com.competeaqui.pagseguro;
+package br.com.competeaqui.pagseguro.data;
 
 
 import lombok.NonNull;

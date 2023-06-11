@@ -1,11 +1,11 @@
-import br.com.competeaqui.pagseguro.Amount;
-import br.com.competeaqui.pagseguro.Customer;
+import br.com.competeaqui.pagseguro.data.Customer;
+import br.com.competeaqui.pagseguro.service.PixOrderRequest;
 import br.com.competeaqui.pagseguro.service.PixOrderService;
-import br.com.competeaqui.pagseguro.service.request.PixOrderRequest;
-import br.com.competeaqui.pagseguro.service.request.QrCode;
+import br.com.competeaqui.pagseguro.service.QrCode;
 import br.com.competeaqui.pagseguro.service.response.PixOrderResponse;
 import br.com.competeaqui.pagseguro.service.response.ResponseError;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 /**
@@ -25,7 +25,7 @@ class AppSample {
         final var customer = new Customer("Manoel", "teste@teste.com", CPF_CNPJ_CLIENTE);
         //TODO: A API só está aceitando valor mínimo de R$ 100 (pode ser somente no sandbox)
         //TODO: Na conversão de BigDecimal pra String, não deve estar aceitando a casa decimal
-        final var qrcode = new QrCode(new Amount("100"), OffsetDateTime.now().plusDays(1));
+        final var qrcode = new QrCode(new BigDecimal("100"), OffsetDateTime.now().plusDays(1));
         final var request = new PixOrderRequest("codigo-da-venda", customer, qrcode, NOTIFICATION_URL);
         try {
             final PixOrderResponse response = service.send(request);

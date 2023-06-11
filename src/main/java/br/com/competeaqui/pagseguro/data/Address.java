@@ -1,5 +1,6 @@
-package br.com.competeaqui.pagseguro;
+package br.com.competeaqui.pagseguro.data;
 
+import br.com.competeaqui.pagseguro.Util;
 import lombok.NonNull;
 
 /**

@@ -1,8 +1,9 @@
 package br.com.competeaqui.pagseguro.service.response;
 
-import br.com.competeaqui.pagseguro.Customer;
 import br.com.competeaqui.pagseguro.Util;
+import br.com.competeaqui.pagseguro.data.Customer;
 import br.com.competeaqui.pagseguro.service.PixOrderService;
+import br.com.competeaqui.pagseguro.service.QrCode;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.OffsetDateTime;
@@ -21,11 +22,11 @@ public record PixOrderResponse(
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = PixOrderService.DATE_TIME_FORMAT)
     OffsetDateTime created_at,
     Customer customer,
-    List<QrCodeResponse> qr_codes,
+    List<QrCode> qr_codes,
     List<Link> links,
     List<String> notification_urls){
 
-    public PixOrderResponse(String id, String reference_id, OffsetDateTime created_at, Customer customer, List<QrCodeResponse> qr_codes, List<Link> links, List<String> notification_urls) {
+    public PixOrderResponse(String id, String reference_id, OffsetDateTime created_at, Customer customer, List<QrCode> qr_codes, List<Link> links, List<String> notification_urls) {
         this.id = id;
         this.reference_id = reference_id;
         this.created_at = created_at;

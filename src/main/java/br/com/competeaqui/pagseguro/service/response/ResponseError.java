@@ -1,6 +1,6 @@
 package br.com.competeaqui.pagseguro.service.response;
 
-import br.com.competeaqui.pagseguro.Customer;
+import br.com.competeaqui.pagseguro.data.Customer;
 import br.com.competeaqui.pagseguro.service.PixOrderService;
 import lombok.Getter;
 import lombok.Setter;
