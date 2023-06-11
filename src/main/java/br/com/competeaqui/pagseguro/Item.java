@@ -1,6 +1,6 @@
 package br.com.competeaqui.pagseguro;
 
-import br.com.competeaqui.pagseguro.service.PixOrderRequest;
+import br.com.competeaqui.pagseguro.service.request.PixOrderRequest;
 import lombok.NonNull;
 
 import java.math.BigDecimal;

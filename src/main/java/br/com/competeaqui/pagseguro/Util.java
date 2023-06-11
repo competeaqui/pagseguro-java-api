@@ -1,5 +1,8 @@
 package br.com.competeaqui.pagseguro;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import static java.util.Objects.requireNonNullElse;
 
 public class Util {
@@ -10,5 +13,14 @@ public class Util {
      */
     public static String getOnlyNumbers(final String str) {
         return requireNonNullElse(str, "").replaceAll("\\D", "");
+    }
+
+    public static String insertTraillingSlash(String path) {
+        path = requireNonNullElse(path, "");
+        return path.endsWith("/") ? path : path + "/";
+    }
+
+    public static <T> List<T> getList(final List<T> list) {
+        return requireNonNullElse(list, new LinkedList<>());
     }
 }

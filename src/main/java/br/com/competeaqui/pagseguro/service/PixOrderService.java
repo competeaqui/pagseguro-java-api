@@ -1,7 +1,11 @@
 package br.com.competeaqui.pagseguro.service;
 
+import br.com.competeaqui.pagseguro.service.request.PixOrderRequest;
+import br.com.competeaqui.pagseguro.service.response.PixOrderResponse;
+import br.com.competeaqui.pagseguro.service.response.ResponseError;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import io.github.cdimascio.dotenv.Dotenv;
 import lombok.NonNull;
 
 import java.io.IOException;
@@ -10,6 +14,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import static br.com.competeaqui.pagseguro.Util.insertTraillingSlash;
 import static java.net.http.HttpRequest.BodyPublishers;
 
 /**
@@ -18,35 +23,44 @@ import static java.net.http.HttpRequest.BodyPublishers;
  * @see PixOrderRequest
  */
 public class PixOrderService {
-    private static final String BASE_URI = "https://sandbox.api.pagseguro.com";
-    private static final String SERVICE_URI = BASE_URI + "/orders";
+    /** Exemplo: 2023-06-10T20:53:13.471-03:00 */
+    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ";
+    private final String baseUri;
+    private final String serviceUri;
+    private final String token;
 
     private final HttpClient client;
     private final ObjectMapper jsonMapper;
 
     public PixOrderService() {
+        final var env = Dotenv.load();
+        baseUri = env.get("PAYMENT_SERVICE_URL");
+        serviceUri = insertTraillingSlash(baseUri) + "orders";
+        token = env.get("PAYMENT_SERVICE_TOKEN");
+
         client = HttpClient.newBuilder().build();
         jsonMapper = new ObjectMapper();
         jsonMapper.registerModule(new JavaTimeModule());
     }
 
     /**
-     * TODO Deve retornar um objeto {@link PixOrderResponse}
-     * @throws RequestErrors
+     * @throws ResponseError quando ocorrem erros no tratamento da requisição
      */
-    public String send(final @NonNull PixOrderRequest order){
+    public PixOrderResponse send(final @NonNull PixOrderRequest order){
         try {
             final String json = jsonMapper.writeValueAsString(order);
             System.out.printf("%s%n%n", json);
             final var request = HttpRequest.newBuilder()
                                            .POST(BodyPublishers.ofString(json))
-                                           .uri(URI.create(SERVICE_URI))
+                                           .header("AUTHORIZATION", token)
+                                           .uri(URI.create(serviceUri))
                                            .build();
             final var res = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if(res.statusCode() != 200) {
-                throw jsonMapper.readValue(res.body(), RequestErrors.class);
+            final var status = String.valueOf(res.statusCode());
+            if(!status.startsWith("20")) {
+                throw jsonMapper.readValue(res.body(), ResponseError.class);
             }
-            return res.body();
+            return jsonMapper.readValue(res.body(), PixOrderResponse.class);
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }

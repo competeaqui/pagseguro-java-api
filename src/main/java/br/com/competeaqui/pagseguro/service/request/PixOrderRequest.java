@@ -1,10 +1,10 @@
-package br.com.competeaqui.pagseguro.service;
+package br.com.competeaqui.pagseguro.service.request;
 
 
 import br.com.competeaqui.pagseguro.Customer;
 import br.com.competeaqui.pagseguro.Item;
-import br.com.competeaqui.pagseguro.QrCode;
 import br.com.competeaqui.pagseguro.Shipping;
+import br.com.competeaqui.pagseguro.service.PixOrderService;
 import lombok.NonNull;
 
 import java.util.LinkedList;
@@ -28,8 +28,15 @@ public record PixOrderRequest(
         this(reference_id, customer, new LinkedList<>(), new LinkedList<>(), null, new LinkedList<>());
     }
 
-    public PixOrderRequest(@NonNull String reference_id, @NonNull Customer customer, @NonNull QrCode qrcode, @NonNull String notificationUrl) {
-        this(reference_id, customer, null, List.of(qrcode), null, List.of(notificationUrl));
+    public PixOrderRequest(@NonNull String reference_id, @NonNull Customer customer, @NonNull QrCode qrcode, @NonNull String notification_url) {
+        this(reference_id, customer, null, List.of(qrcode), null, List.of(validateUrl(notification_url)));
+    }
+
+    private static String validateUrl(final String notification_url) {
+        if(notification_url.isBlank())
+            throw new IllegalArgumentException("notification_url é obrigatória");
+
+        return notification_url;
     }
 
 }

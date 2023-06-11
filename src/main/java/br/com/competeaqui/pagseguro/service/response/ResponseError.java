@@ -1,6 +1,7 @@
-package br.com.competeaqui.pagseguro.service;
+package br.com.competeaqui.pagseguro.service.response;
 
 import br.com.competeaqui.pagseguro.Customer;
+import br.com.competeaqui.pagseguro.service.PixOrderService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,6 @@ import java.util.List;
  * @see PixOrderService
  */
 @Getter @Setter
-public class RequestErrors extends RuntimeException {
+public class ResponseError extends RuntimeException {
     private List<ErrorMessage> error_messages = new LinkedList<>();
 }

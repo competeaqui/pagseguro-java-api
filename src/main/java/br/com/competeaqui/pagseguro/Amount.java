@@ -13,4 +13,8 @@ public record Amount (@NonNull BigDecimal value){
     public Amount(@NonNull String value) {
         this(new BigDecimal(value));
     }
+
+    public static Amount zero(){
+        return new Amount(BigDecimal.ZERO);
+    }
 }
