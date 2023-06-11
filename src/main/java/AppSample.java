@@ -50,11 +50,11 @@ class AppSample {
 
     private static void printQrCode(final QrCode code) {
         System.out.println("QRCode:");
-        System.out.printf("\tid: %s%n", code.getId());
-        System.out.printf("\ttext: %s%n", code.getText());
-        System.out.printf("\texpiration_date: %s%n", code.getExpiration_date());
-        System.out.printf("\tarrangements: %s%n", code.getArrangements());
-        printLinks(code.getLinks(), "\t");
+        System.out.printf("\tid: %s%n", code.id());
+        System.out.printf("\ttext: %s%n", code.text());
+        System.out.printf("\texpiration_date: %s%n", code.expiration_date());
+        System.out.printf("\tarrangements: %s%n", code.arrangements());
+        printLinks(code.links(), "\t");
     }
 
     private static void printLinks(final List<Link> links, final String ident) {

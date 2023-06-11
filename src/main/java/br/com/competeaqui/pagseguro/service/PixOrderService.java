@@ -53,6 +53,7 @@ public class PixOrderService {
                                            .header("AUTHORIZATION", token)
                                            .uri(URI.create(serviceUri))
                                            .build();
+            System.out.printf("%n%s%n%n", json);
             final var res = client.send(request, HttpResponse.BodyHandlers.ofString());
             final var status = String.valueOf(res.statusCode());
             final var responseBody = res.body();
