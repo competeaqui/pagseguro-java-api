@@ -9,7 +9,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Erro no processamento de uma requisição à API do PagSeguro.
  * @author Manoel Campos da Silva Filho
+ * @see #getError_messages()
  * @see Customer
  * @see PixOrderService
  */
