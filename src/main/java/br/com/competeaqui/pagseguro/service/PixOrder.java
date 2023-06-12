@@ -56,7 +56,7 @@ public record PixOrder(
 
         Shipping shipping,
         List<Link> links,
-        @NonNull List<String> notification_urls,
+        List<String> notification_urls,
         List<Charge> charges)
 {
     public PixOrder(@NonNull String reference_id, @NonNull Customer customer) {
