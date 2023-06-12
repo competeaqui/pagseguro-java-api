@@ -1,4 +1,4 @@
-# PagSeguro Java API [![build](https://github.com/competeaqui/pagseguro-java-api/actions/workflows/build.yml/badge.svg)](https://github.com/competeaqui/pagseguro-java-api/actions/workflows/build.yml) 
+# PagSeguro Java API [![build](https://github.com/competeaqui/pagseguro-java-api/actions/workflows/build.yml/badge.svg)](https://github.com/competeaqui/pagseguro-java-api/actions/workflows/build.yml) [![Maven Central](https://img.shields.io/maven-central/v/br.com.competeaqui/pagseguro-api.svg?label=Maven%20Central)](https://central.sonatype.com/search?q=pagseguro-api&namespace=br.com.competeaqui)
 
 <!-- [![Codacy Badge](https://app.codacy.com/project/badge/Grade/xxxxxx)](https://app.codacy.com/gh/competeaqui/pagseguro-java-api/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade) [![Codacy Code Coverage](https://app.codacy.com/project/badge/Coverage/xxxxxx)](https://www.codacy.com/gh/competeaqui/pagseguro-java-api/dashboard?utm_source=github.com&utm_medium=referral&utm_content=competeaqui/pagseguro-java-api&utm_campaign=Badge_Coverage) -->
 
