@@ -6,6 +6,7 @@ import br.com.competeaqui.pagseguro.data.Customer;
 import br.com.competeaqui.pagseguro.data.Item;
 import br.com.competeaqui.pagseguro.data.Shipping;
 import br.com.competeaqui.pagseguro.service.response.Link;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.NonNull;
@@ -50,6 +51,7 @@ public record PixOrder(
         OffsetDateTime created_at,
         @NonNull Customer customer,
         List<Item> items,
+        @JsonAlias("qr_code")
         @NonNull List<QrCode> qr_codes,
 
         Shipping shipping,
