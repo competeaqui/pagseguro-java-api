@@ -15,9 +15,13 @@ public class Util {
         return requireNonNullElse(str, "").replaceAll("\\D", "");
     }
 
-    public static String insertTraillingSlash(String path) {
-        path = requireNonNullElse(path, "");
-        return path.endsWith("/") ? path : path + "/";
+    /**
+     * Remove barras duplas de uma URI, exceto :// do protocolo.
+     * @param uri URI a ser validada
+     * @return a URI trocando // por /
+     */
+    public static String validateUri(final String uri) {
+        return uri.replaceAll("([^:])(//)", "$1/");
     }
 
     public static <T> List<T> getList(final List<T> list) {
