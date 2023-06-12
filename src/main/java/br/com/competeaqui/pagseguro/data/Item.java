@@ -14,5 +14,5 @@ import java.math.BigDecimal;
  * @author Manoel Campos da Silva Filho
  * @see PixOrderRequest
  */
-public record Item(@NonNull String name, int quantity, @NonNull BigDecimal unit_amount) {
+public record Item(@NonNull String name, int quantity, @NonNull BigDecimal unit_amount, String reference_id) {
 }
