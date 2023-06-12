@@ -6,7 +6,7 @@
 
     <groupId>br.com.competeaqui</groupId>
     <artifactId>pagseguro-api</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.1-snapshot</version>
 
     <name>PagSeguro Java API</name>
     <description>
