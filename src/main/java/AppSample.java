@@ -4,6 +4,7 @@ import br.com.competeaqui.pagseguro.service.PixOrderService;
 import br.com.competeaqui.pagseguro.service.QrCode;
 import br.com.competeaqui.pagseguro.service.response.Link;
 import br.com.competeaqui.pagseguro.service.response.ResponseError;
+import io.github.cdimascio.dotenv.Dotenv;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -22,7 +23,11 @@ class AppSample {
     public static final String CPF_CNPJ_CLIENTE = "14880686077";
 
     public static void main(final String[] args) {
-        final var service = new PixOrderService();
+        final var env = Dotenv.load();
+        final var baseUrl = env.get("PAYMENT_SERVICE_URL");
+        final var token = env.get("PAYMENT_SERVICE_TOKEN");
+
+        final var service = new PixOrderService(baseUrl, token);
         final var customer = new Customer("Manoel", "teste@teste.com", CPF_CNPJ_CLIENTE);
         //TODO: A API só está aceitando valor mínimo de R$ 100 (pode ser somente no sandbox)
         //TODO: Na conversão de BigDecimal pra String, não deve estar aceitando a casa decimal

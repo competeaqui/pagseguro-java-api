@@ -3,7 +3,6 @@ package br.com.competeaqui.pagseguro.service;
 import br.com.competeaqui.pagseguro.service.response.ResponseError;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import io.github.cdimascio.dotenv.Dotenv;
 import lombok.NonNull;
 
 import java.io.IOException;
@@ -23,22 +22,18 @@ import static java.net.http.HttpRequest.BodyPublishers;
 public class PixOrderService {
     /** Exemplo: 2023-06-10T20:53:13.471-03:00 */
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ";
-    private final String baseUri;
-    private final String serviceUri;
+    private final String serviceUrl;
     private final String token;
 
     private final HttpClient client;
     private final ObjectMapper jsonMapper;
 
-    public PixOrderService() {
-        final var env = Dotenv.load();
-        baseUri = env.get("PAYMENT_SERVICE_URL");
-        serviceUri = insertTraillingSlash(baseUri) + "orders";
-        token = env.get("PAYMENT_SERVICE_TOKEN");
-
-        client = HttpClient.newBuilder().build();
-        jsonMapper = new ObjectMapper();
-        jsonMapper.registerModule(new JavaTimeModule());
+    public PixOrderService(@NonNull final String baseUrl, @NonNull final String token) {
+        this.serviceUrl = insertTraillingSlash(baseUrl) + "orders";
+        this.token = token;
+        this.client = HttpClient.newBuilder().build();
+        this.jsonMapper = new ObjectMapper();
+        this.jsonMapper.registerModule(new JavaTimeModule());
     }
 
     /**
@@ -50,7 +45,7 @@ public class PixOrderService {
             final var request = HttpRequest.newBuilder()
                                            .POST(BodyPublishers.ofString(json))
                                            .header("Authorization", token)
-                                           .uri(URI.create(serviceUri))
+                                           .uri(URI.create(serviceUrl))
                                            .build();
             System.out.printf("%n%s%n%n", json);
             final var res = client.send(request, HttpResponse.BodyHandlers.ofString());
