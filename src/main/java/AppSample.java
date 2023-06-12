@@ -1,9 +1,8 @@
 import br.com.competeaqui.pagseguro.data.Customer;
-import br.com.competeaqui.pagseguro.service.PixOrderRequest;
+import br.com.competeaqui.pagseguro.service.PixOrder;
 import br.com.competeaqui.pagseguro.service.PixOrderService;
 import br.com.competeaqui.pagseguro.service.QrCode;
 import br.com.competeaqui.pagseguro.service.response.Link;
-import br.com.competeaqui.pagseguro.service.response.PixOrderResponse;
 import br.com.competeaqui.pagseguro.service.response.ResponseError;
 
 import java.math.BigDecimal;
@@ -28,9 +27,9 @@ class AppSample {
         //TODO: A API só está aceitando valor mínimo de R$ 100 (pode ser somente no sandbox)
         //TODO: Na conversão de BigDecimal pra String, não deve estar aceitando a casa decimal
         final var qrcode = new QrCode(new BigDecimal("100"), OffsetDateTime.now().plusDays(1));
-        final var request = new PixOrderRequest("codigo-da-venda", customer, qrcode, NOTIFICATION_URL);
+        final var request = new PixOrder("codigo-da-venda", customer, qrcode, NOTIFICATION_URL);
         try {
-            final PixOrderResponse response = service.send(request);
+            final PixOrder response = service.send(request);
             printResponse(response);
         } catch (final ResponseError e) {
             System.err.println("Erro ao processar requisição");
@@ -38,7 +37,7 @@ class AppSample {
         }
     }
 
-    private static void printResponse(final PixOrderResponse response) {
+    private static void printResponse(final PixOrder response) {
         System.out.printf("QRCode id: %s%n", response.id());
         System.out.printf("reference_id: %s%n", response.reference_id());
         System.out.printf("created_at: %s%n", response.created_at());

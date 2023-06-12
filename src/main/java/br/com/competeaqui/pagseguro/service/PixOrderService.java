@@ -1,6 +1,5 @@
 package br.com.competeaqui.pagseguro.service;
 
-import br.com.competeaqui.pagseguro.service.response.PixOrderResponse;
 import br.com.competeaqui.pagseguro.service.response.ResponseError;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -19,7 +18,7 @@ import static java.net.http.HttpRequest.BodyPublishers;
 /**
  * Envia requisição de geração de QRCode de pagamento PIX.
  * @author Manoel Campos da Silva Filho
- * @see PixOrderRequest
+ * @see PixOrder
  */
 public class PixOrderService {
     /** Exemplo: 2023-06-10T20:53:13.471-03:00 */
@@ -45,7 +44,7 @@ public class PixOrderService {
     /**
      * @throws ResponseError quando ocorrem erros no tratamento da requisição
      */
-    public PixOrderResponse send(final @NonNull PixOrderRequest order){
+    public PixOrder send(final @NonNull PixOrder order){
         try {
             final String json = jsonMapper.writeValueAsString(order);
             final var request = HttpRequest.newBuilder()
@@ -60,7 +59,7 @@ public class PixOrderService {
             if(!status.startsWith("20")) {
                 throw jsonMapper.readValue(responseBody, ResponseError.class);
             }
-            return jsonMapper.readValue(responseBody, PixOrderResponse.class);
+            return jsonMapper.readValue(responseBody, PixOrder.class);
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }

@@ -2,7 +2,6 @@ package br.com.competeaqui.pagseguro.service;
 
 import br.com.competeaqui.pagseguro.data.Amount;
 import br.com.competeaqui.pagseguro.service.response.Link;
-import br.com.competeaqui.pagseguro.service.response.PixOrderResponse;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.NonNull;
@@ -13,7 +12,7 @@ import java.util.List;
 
 /**
  * @author Manoel Campos da Silva Filho
- * @see PixOrderRequest
+ * @see PixOrder
  */
 @JsonSerialize
 public record QrCode(

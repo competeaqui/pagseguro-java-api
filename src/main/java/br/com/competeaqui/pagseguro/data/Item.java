@@ -1,6 +1,6 @@
 package br.com.competeaqui.pagseguro.data;
 
-import br.com.competeaqui.pagseguro.service.PixOrderRequest;
+import br.com.competeaqui.pagseguro.service.PixOrder;
 import lombok.NonNull;
 
 import java.math.BigDecimal;
@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * @param unit_amount Valor unitário.
  *
  * @author Manoel Campos da Silva Filho
- * @see PixOrderRequest
+ * @see PixOrder
  */
 public record Item(@NonNull String name, int quantity, @NonNull BigDecimal unit_amount, String reference_id) {
 }
