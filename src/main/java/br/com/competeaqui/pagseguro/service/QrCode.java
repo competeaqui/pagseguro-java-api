@@ -52,7 +52,7 @@ public record QrCode(
     /**
      * Construtor chamado automaticamente quando é feito o parse do JSON de resposta
      * de requisição para criação de QRCode PIX.
-     * @see PixOrderResponse
+     * @see PixOrder
      * @see PixOrderService
      */
     public QrCode(

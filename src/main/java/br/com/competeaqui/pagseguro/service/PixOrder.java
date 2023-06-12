@@ -1,16 +1,20 @@
 package br.com.competeaqui.pagseguro.service;
 
 
+import br.com.competeaqui.pagseguro.data.Charge;
 import br.com.competeaqui.pagseguro.data.Customer;
 import br.com.competeaqui.pagseguro.data.Item;
 import br.com.competeaqui.pagseguro.data.Shipping;
 import br.com.competeaqui.pagseguro.service.response.Link;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.NonNull;
 
 import java.time.OffsetDateTime;
 import java.util.LinkedList;
 import java.util.List;
+
+import static java.util.Collections.emptyList;
 
 /**
  * Representa objetos com dados para solicitar a criação de um QRCode de PIX para uma venda (pedido) de um cliente.
@@ -32,9 +36,13 @@ import java.util.List;
  *              pois é preenchido apenas na resposta da requisição de criação de QRCode PIX.
  * @param notification_urls URLs do seu sistema que devem ser receber notificação do PagSeguro
  *                          quando o QRCode for pago.
+ * @param charges Informações sobre a confirmação de pagamento de um pedido feito por um cliente.
+ *                Não deve ser informado quando for feita solicitação de criação de QRCode,
+ *                pois é preenchido apenas quando o PagSeguro envia mensagem assim que o cliente realiza o pagamento.
  * @see Customer
  * @see PixOrderService
  */
+@JsonSerialize
 public record PixOrder(
         String id,
         @NonNull String reference_id,
@@ -46,14 +54,15 @@ public record PixOrder(
 
         Shipping shipping,
         List<Link> links,
-        @NonNull List<String> notification_urls)
+        @NonNull List<String> notification_urls,
+        List<Charge> charges)
 {
     public PixOrder(@NonNull String reference_id, @NonNull Customer customer) {
-        this(null, reference_id, null, customer, new LinkedList<>(), new LinkedList<>(), null, new LinkedList<>(), new LinkedList<>());
+        this(null, reference_id, null, customer, new LinkedList<>(), new LinkedList<>(), null, emptyList(), new LinkedList<>(), null);
     }
 
     public PixOrder(@NonNull String reference_id, @NonNull Customer customer, QrCode qrcode, @NonNull String notification_url) {
-        this(null, reference_id, null, customer, null, List.of(qrcode), null, new LinkedList<>(), List.of(validateUrl(notification_url)));
+        this(null, reference_id, null, customer, null, List.of(qrcode), null, emptyList(), List.of(validateUrl(notification_url)), null);
     }
 
     private static String validateUrl(final String notification_url) {
