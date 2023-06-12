@@ -50,7 +50,7 @@ public class PixOrderService {
             final String json = jsonMapper.writeValueAsString(order);
             final var request = HttpRequest.newBuilder()
                                            .POST(BodyPublishers.ofString(json))
-                                           .header("AUTHORIZATION", token)
+                                           .header("Authorization", token)
                                            .uri(URI.create(serviceUri))
                                            .build();
             System.out.printf("%n%s%n%n", json);
