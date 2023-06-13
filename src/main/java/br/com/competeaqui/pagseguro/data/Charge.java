@@ -17,7 +17,7 @@ import java.util.List;
 public record Charge (
     String id,
     String reference_id,
-    String status,
+    Status status,
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = PixOrderService.DATE_TIME_FORMAT)
     OffsetDateTime created_at,
@@ -30,4 +30,5 @@ public record Charge (
     PaymentResponse payment_response,
     PaymentMethod payment_method,
     List<Link> links){
+        public enum Status{PAID, AUTHORIZED, CANCELED};
 }
