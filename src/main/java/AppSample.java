@@ -15,8 +15,6 @@ import java.util.List;
  * @author Manoel Campos da Silva Filho
  */
 class AppSample {
-    private static final String NOTIFICATION_URL = "https://url-do-seu-sistema-para-receber-confirmacao-pagamento.com";
-
     /**
      * CPF válido gerado aleatoriamente em https://www.4devs.com.br
      */
@@ -26,13 +24,14 @@ class AppSample {
         final var env = Dotenv.load();
         final var baseUrl = env.get("PAYMENT_SERVICE_URL");
         final var token = env.get("PAYMENT_SERVICE_TOKEN");
+        final var notificationUrl = env.get("PAYMENT_NOTIFICATION_URL");
 
         final var service = new PixOrderService(baseUrl, token);
         final var customer = new Customer("Manoel", "teste@teste.com", CPF_CNPJ_CLIENTE);
         //TODO: A API só está aceitando valor mínimo de R$ 100 (pode ser somente no sandbox)
         //TODO: Na conversão de BigDecimal pra String, não deve estar aceitando a casa decimal
         final var qrcode = new QrCode(new BigDecimal("100"), OffsetDateTime.now().plusDays(1));
-        final var request = new PixOrder("codigo-da-venda", customer, qrcode, NOTIFICATION_URL);
+        final var request = new PixOrder("codigo-da-venda", customer, qrcode, notificationUrl);
         try {
             final PixOrder response = service.send(request);
             printResponse(response);
