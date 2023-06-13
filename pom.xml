@@ -6,7 +6,7 @@
 
     <groupId>br.com.competeaqui</groupId>
     <artifactId>pagseguro-api</artifactId>
-    <version>0.0.1-snapshot</version>
+    <version>0.0.2-snapshot</version>
 
     <name>PagSeguro Java API</name>
     <description>
@@ -148,9 +148,10 @@
                         <extensions>true</extensions>
                         <configuration>
                             <serverId>competeaqui-ossrh</serverId>
+                            <!-- URL para administração de artefatos publicados (definida pela equipe do sonatype) -->
                             <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
                             <!--If the artifact will be automatically released to maven central after the upload to sonatype.-->
-                            <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>
                     </plugin>
                 </plugins>
