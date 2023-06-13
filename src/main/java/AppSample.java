@@ -6,7 +6,6 @@ import br.com.competeaqui.pagseguro.service.response.Link;
 import br.com.competeaqui.pagseguro.service.response.ResponseError;
 import io.github.cdimascio.dotenv.Dotenv;
 
-import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -29,8 +28,8 @@ class AppSample {
 
         final var service = new PixOrderService(baseUrl, token);
         final var customer = new Customer("Manoel", "teste@teste.com", CPF_CNPJ_CLIENTE);
-        //TODO: https://github.com/competeaqui/pagseguro-java-api/issues/1
-        final var qrcode = new QrCode(new BigDecimal("100"), OffsetDateTime.now().plusDays(1));
+        final long valorCentavos = 100;
+        final var qrcode = new QrCode(valorCentavos, OffsetDateTime.now().plusDays(1));
         final var request = new PixOrder(reference_id, customer, qrcode, notificationUrl);
         try {
             final PixOrder response = service.send(request);

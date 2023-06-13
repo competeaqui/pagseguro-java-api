@@ -6,12 +6,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.NonNull;
 
-import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
 
 /**
  * @author Manoel Campos da Silva Filho
+ * @param amount valor do PIX em centavos, sendo o valor mínimo 100 centavos (R$ 1,00)
  * @see PixOrder
  */
 @JsonSerialize
@@ -31,27 +31,28 @@ public record QrCode(
      * Construtor que cria um objeto PIX para enviar solicitação para o {@link PixOrderService}
      * para criação de QRCode.
      *
-     * @param amountDecimal valor do PIX
+     * @param amount valor do PIX em centavos, sendo o valor mínimo 100 centavos (R$ 1,00)
      * @param expiration_date data de expiração
      */
-    public QrCode(final String id, final String text, @NonNull final BigDecimal amountDecimal, final OffsetDateTime expiration_date) {
-        this(nonBlank(id), nonBlank(text), new Amount(amountDecimal), expiration_date, null, null);
+    public QrCode(final String id, final String text, @NonNull final long amount, final OffsetDateTime expiration_date) {
+        this(nonBlank(id), nonBlank(text), new Amount(amount), expiration_date, null, null);
     }
 
     /**
      * Construtor que cria um objeto PIX para enviar solicitação para o {@link PixOrderService}
      * para criação de QRCode.
      *
-     * @param amountDecimal valor do PIX
+     * @param amout valor do PIX em centavos, sendo o valor mínimo 100 centavos (R$ 1,00)
      * @param expiration_date data de expiração
      */
-    public QrCode(@NonNull final BigDecimal amountDecimal, final OffsetDateTime expiration_date) {
-        this(null, null, new Amount(amountDecimal), expiration_date, null, null);
+    public QrCode(@NonNull final long amout, final OffsetDateTime expiration_date) {
+        this(null, null, new Amount(amout), expiration_date, null, null);
     }
 
     /**
      * Construtor chamado automaticamente quando é feito o parse do JSON de resposta
      * de requisição para criação de QRCode PIX.
+     * @param amount valor do PIX em centavos, sendo o valor mínimo 100 centavos (R$ 1,00)
      * @see PixOrder
      * @see PixOrderService
      */
