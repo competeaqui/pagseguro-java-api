@@ -25,12 +25,13 @@ class AppSample {
         final var baseUrl = env.get("PAYMENT_SERVICE_URL");
         final var token = env.get("PAYMENT_SERVICE_TOKEN");
         final var notificationUrl = env.get("PAYMENT_NOTIFICATION_URL");
+        final var reference_id = env.get("PAYMENT_REFERENCE_ID");
 
         final var service = new PixOrderService(baseUrl, token);
         final var customer = new Customer("Manoel", "teste@teste.com", CPF_CNPJ_CLIENTE);
         //TODO: https://github.com/competeaqui/pagseguro-java-api/issues/1
         final var qrcode = new QrCode(new BigDecimal("100"), OffsetDateTime.now().plusDays(1));
-        final var request = new PixOrder("codigo-da-venda", customer, qrcode, notificationUrl);
+        final var request = new PixOrder(reference_id, customer, qrcode, notificationUrl);
         try {
             final PixOrder response = service.send(request);
             printResponse(response);
