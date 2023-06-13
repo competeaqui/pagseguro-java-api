@@ -28,8 +28,7 @@ class AppSample {
 
         final var service = new PixOrderService(baseUrl, token);
         final var customer = new Customer("Manoel", "teste@teste.com", CPF_CNPJ_CLIENTE);
-        //TODO: A API só está aceitando valor mínimo de R$ 100 (pode ser somente no sandbox)
-        //TODO: Na conversão de BigDecimal pra String, não deve estar aceitando a casa decimal
+        //TODO: https://github.com/competeaqui/pagseguro-java-api/issues/1
         final var qrcode = new QrCode(new BigDecimal("100"), OffsetDateTime.now().plusDays(1));
         final var request = new PixOrder("codigo-da-venda", customer, qrcode, notificationUrl);
         try {
