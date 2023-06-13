@@ -1,5 +1,6 @@
 package br.com.competeaqui.pagseguro.service;
 
+import br.com.competeaqui.pagseguro.Util;
 import br.com.competeaqui.pagseguro.service.response.ResponseError;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -11,7 +12,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-import static br.com.competeaqui.pagseguro.Util.validateUri;
 import static java.net.http.HttpRequest.BodyPublishers;
 
 /**
@@ -29,7 +29,7 @@ public class PixOrderService {
     private final ObjectMapper jsonMapper;
 
     public PixOrderService(@NonNull final String baseUrl, @NonNull final String token) {
-        this.serviceUrl = validateUri(baseUrl + "/orders");
+        this.serviceUrl = Util.validateUrl(baseUrl + "/orders");
         this.token = token;
         this.client = HttpClient.newBuilder().build();
         this.jsonMapper = new ObjectMapper();

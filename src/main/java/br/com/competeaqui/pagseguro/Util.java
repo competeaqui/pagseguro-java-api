@@ -20,7 +20,7 @@ public class Util {
      * @param uri URI a ser validada
      * @return a URI trocando // por /
      */
-    public static String validateUri(final String uri) {
+    public static String validateUrl(final String uri) {
         return uri.replaceAll("([^:])(//)", "$1/");
     }
 
