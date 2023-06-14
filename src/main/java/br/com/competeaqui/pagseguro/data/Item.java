@@ -12,5 +12,5 @@ import lombok.NonNull;
  * @author Manoel Campos da Silva Filho
  * @see PixOrder
  */
-public record Item(@NonNull String name, int quantity, @NonNull int unit_amount, String reference_id) {
+public record Item(@NonNull String name, int quantity, int unit_amount, String reference_id) {
 }
