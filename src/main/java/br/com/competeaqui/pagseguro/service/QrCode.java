@@ -35,7 +35,7 @@ public record QrCode(
      * @param amount valor do PIX em centavos, sendo o valor mínimo 100 centavos (R$ 1,00)
      * @param expiration_date data de validade do QRCode (após esta data, ele não aceita mais pagamentos).
      */
-    public QrCode(final String id, final String text, @NonNull final long amount, final OffsetDateTime expiration_date) {
+    public QrCode(final String id, final String text, @NonNull final int amount, final OffsetDateTime expiration_date) {
         this(nonBlank(id), nonBlank(text), new Amount(amount), expiration_date, null, null);
     }
 
@@ -46,7 +46,7 @@ public record QrCode(
      * @param amout valor do PIX em centavos, sendo o valor mínimo 100 centavos (R$ 1,00)
      * @param expiration_date data de validade do QRCode (após esta data, ele não aceita mais pagamentos).
      */
-    public QrCode(@NonNull final long amout, final OffsetDateTime expiration_date) {
+    public QrCode(@NonNull final int amout, final OffsetDateTime expiration_date) {
         this(null, null, new Amount(amout), expiration_date, null, null);
     }
 

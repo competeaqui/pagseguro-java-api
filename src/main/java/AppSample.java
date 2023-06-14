@@ -28,7 +28,7 @@ class AppSample {
 
         final var service = new PixOrderService(baseUrl, token);
         final var customer = new Customer("Manoel", "teste@teste.com", CPF_CNPJ_CLIENTE);
-        final long valorCentavos = 100;
+        final int valorCentavos = 100;
         final var qrcode = new QrCode(valorCentavos, OffsetDateTime.now().plusDays(1));
         final var request = new PixOrder(reference_id, customer, qrcode, notificationUrl);
         try {
@@ -41,8 +41,8 @@ class AppSample {
     }
 
     private static void printResponse(final PixOrder response) {
+        System.out.printf("Order reference_id: %s%n", response.reference_id());
         System.out.printf("QRCode id: %s%n", response.id());
-        System.out.printf("reference_id: %s%n", response.reference_id());
         System.out.printf("created_at: %s%n", response.created_at());
         System.out.printf("customer: %s%n", response.customer());
         printLinks(response.links(), "");

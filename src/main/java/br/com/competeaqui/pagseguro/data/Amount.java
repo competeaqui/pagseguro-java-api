@@ -13,16 +13,16 @@ import lombok.NonNull;
  *                tal atributo não deve ser preenchido.
  * @author Manoel Campos da Silva Filho
  */
-public record Amount (@NonNull long value, String currency, Summary summary){
+public record Amount (@NonNull int value, String currency, Summary summary){
     /**
      * Cria uma instaância com um determinado valor
      * @param value valor em centavos, sendo o valor mínimo 100 centavos (R$ 1,00)
      */
-    public Amount(@NonNull long value) {
+    public Amount(@NonNull int value) {
         this(value, "BRL", null);
     }
 
     public static Amount zero(){
-        return new Amount(0L, "BRL", null);
+        return new Amount(0, "BRL", null);
     }
 }
