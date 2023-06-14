@@ -14,15 +14,21 @@ import lombok.NonNull;
  * @author Manoel Campos da Silva Filho
  */
 public record Amount (@NonNull int value, String currency, Summary summary){
+
+    /**
+     * Moeda padrão (caso nenhuma for especificada)
+     */
+    public static final String DEF_CURRENCY = "BRL";
+
     /**
      * Cria uma instaância com um determinado valor
      * @param value valor em centavos, sendo o valor mínimo 100 centavos (R$ 1,00)
      */
     public Amount(@NonNull int value) {
-        this(value, "BRL", null);
+        this(value, DEF_CURRENCY, null);
     }
 
     public static Amount zero(){
-        return new Amount(0, "BRL", null);
+        return new Amount(0, DEF_CURRENCY, null);
     }
 }
