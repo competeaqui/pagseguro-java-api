@@ -64,14 +64,14 @@ public record PixOrder(
     }
 
     public PixOrder(@NonNull String reference_id, @NonNull Customer customer, QrCode qrcode, @NonNull String notification_url) {
-        this(null, reference_id, null, customer, null, List.of(qrcode), null, emptyList(), List.of(validateUrl(notification_url)), null);
+        this(null, reference_id, null, customer, null, List.of(qrcode), null, emptyList(), getSingleList(notification_url), null);
     }
 
-    private static String validateUrl(final String notification_url) {
-        if(notification_url.isBlank())
-            throw new IllegalArgumentException("notification_url é obrigatória");
+    private static List<String> getSingleList(final String value) {
+        if(value == null || value.isBlank())
+            return List.of();
 
-        return notification_url;
+        return List.of(value);
     }
 
 }
