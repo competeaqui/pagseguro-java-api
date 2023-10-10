@@ -22,7 +22,7 @@ public record Amount (int value, String currency, Summary summary){
      * Cria uma instaância com um determinado valor
      * @param value valor em centavos, sendo o valor mínimo 100 centavos (R$ 1,00)
      */
-    public Amount(int value) {
+    public Amount(final int value) {
         this(value, DEF_CURRENCY, null);
     }
 
