@@ -13,6 +13,7 @@ import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import static java.net.http.HttpClient.Redirect;
 import static java.net.http.HttpRequest.BodyPublishers;
 
 /**
@@ -32,7 +33,7 @@ public class PixOrderService {
     public PixOrderService(@NonNull final String baseUrl, @NonNull final String token) {
         this.serviceUrl = Util.validateUrl(baseUrl + "/orders");
         this.token = token;
-        this.client = HttpClient.newBuilder().build();
+        this.client = HttpClient.newBuilder().followRedirects(Redirect.NORMAL).build();
         this.jsonMapper = new ObjectMapper();
         this.jsonMapper.registerModule(new JavaTimeModule());
     }
