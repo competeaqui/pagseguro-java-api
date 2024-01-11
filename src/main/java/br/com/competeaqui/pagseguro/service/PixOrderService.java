@@ -9,6 +9,7 @@ import lombok.NonNull;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
+import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
@@ -47,10 +48,11 @@ public class PixOrderService {
                                            .header("Authorization", token)
                                            .uri(URI.create(serviceUrl))
                                            .build();
-            System.out.printf("%n%s%n%n", json);
-            final var res = client.send(request, HttpResponse.BodyHandlers.ofString());
-            final var status = String.valueOf(res.statusCode());
-            final var responseBody = res.body();
+            final var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            final var status = String.valueOf(response.statusCode());
+            final var responseBody = response.body();
+            print(request, json);
+            print(response);
             if(!status.startsWith("20")) {
                 throw jsonMapper.readValue(responseBody, ResponseError.class);
             }
@@ -58,5 +60,37 @@ public class PixOrderService {
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static void print(final HttpRequest request, final String jsonBody) {
+        println("Request");
+        println("curl --location --request %s %s \\", request.method(), request.uri());
+        printHeader(request.headers(), "Authorization", "-H ");
+        println("-H 'Content-Type: application/json' \\");
+        println("--data-raw '%s'", jsonBody);
+        System.out.println();
+    }
+
+    private static void printHeader(final HttpHeaders headers, final String headerName) {
+        printHeader(headers, headerName, "");
+    }
+
+    private static void printHeader(final HttpHeaders headers, final String headerName, final String prefix) {
+        final var quotes = prefix.isBlank() ? "" : "'";
+        final var breakLine = prefix.isBlank() ? "" : " \\";
+        headers.firstValue(headerName).ifPresent(val -> println("%s%s%s: %s%s%s", prefix, quotes, headerName, val, quotes, breakLine));
+    }
+
+    private void print(final HttpResponse<String> response) {
+        System.out.println("Response");
+        printHeader(response.headers(), ":status");
+        printHeader(response.headers(), "content-type");
+        System.out.println();
+        println(response.body());
+        System.out.println();
+    }
+
+    private static void println(final String format, final Object ...args){
+        System.out.printf(format + "%n", args);
     }
 }
