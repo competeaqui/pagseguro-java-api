@@ -71,6 +71,10 @@ public record PixOrder(
         this(null, reference_id, null, customer, null, List.of(qrcode), null, emptyList(), getSingleList(notification_url), null);
     }
 
+    public PixOrder(@NonNull String reference_id, @NonNull Customer customer, QrCode qrcode, @NonNull String notification_url, @NonNull List<Item> items) {
+        this(null, reference_id, null, customer, items, List.of(qrcode), null, emptyList(), getSingleList(notification_url), null);
+    }
+
     private static List<String> getSingleList(final String value) {
         if(value == null || value.isBlank())
             return List.of();
