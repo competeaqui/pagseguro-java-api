@@ -9,9 +9,11 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 /**
+ * Representa um QRCode PIX.
  * @author Manoel Campos da Silva Filho
  * @param amount valor do PIX em centavos, sendo o valor mínimo 100 centavos (R$ 1,00)
  * @param expiration_date data de validade do QRCode (após esta data, ele não aceita mais pagamentos)
+ * @param text código Copia e Cola para pagamento
  * @see PixOrder
  */
 @JsonSerialize
