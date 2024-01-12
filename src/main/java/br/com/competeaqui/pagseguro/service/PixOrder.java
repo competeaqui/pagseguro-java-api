@@ -50,6 +50,10 @@ public record PixOrder(
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = PixOrderService.DATE_TIME_FORMAT)
         OffsetDateTime created_at,
         @NonNull Customer customer,
+
+        /**
+         * Itens do pedido de venda.
+         */
         List<Item> items,
         @JsonAlias("qr_code")
         @NonNull List<QrCode> qr_codes,
