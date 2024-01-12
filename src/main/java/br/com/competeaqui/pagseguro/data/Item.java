@@ -13,4 +13,7 @@ import lombok.NonNull;
  * @see PixOrder
  */
 public record Item(@NonNull String name, int quantity, int unit_amount, String reference_id) {
+    public Item(final String name, final int quantity, final int unit_amount){
+        this(name, quantity, unit_amount, null);
+    }
 }
