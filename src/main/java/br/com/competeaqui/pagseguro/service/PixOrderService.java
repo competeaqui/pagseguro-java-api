@@ -52,8 +52,6 @@ public class PixOrderService {
             final var response = client.send(request, HttpResponse.BodyHandlers.ofString());
             final var status = String.valueOf(response.statusCode());
             final var responseBody = response.body();
-            print(request, json);
-            print(response);
             if(!status.startsWith("20")) {
                 throw jsonMapper.readValue(responseBody, ResponseError.class);
             }
